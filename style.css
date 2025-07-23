@@ -81,3 +81,8 @@ iframe {
   font-size: 18px;
   color: gray;
 }
+.logo {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}

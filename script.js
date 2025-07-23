@@ -109,6 +109,26 @@ const videos = [
     genre: "Pop",
     videoId: "o8hMCKOZxQGv2OjA"
   },
+  {
+    title: "Lukas Graham - 7 Years ",
+    genre: "Pop",
+    videoId: "-3SLouxrVWJGP8rd"
+  },
+  {
+    title: "The Weekend - Blinding lights ",
+    genre: "Pop",
+    videoId: "lbCq_B6EWjMAXOZO"
+  },
+  {
+    title: "Avicii - The Nights ",
+    genre: "Pop",
+    videoId: "TLh0ha3dLDnCmCgm"
+  },
+  {
+    title: "10cm - 너에게 닿기를 ",
+    genre: "K-Pop",
+    videoId: "PQL28qfLSjgYicES"
+  },
 ];
 
 const searchInput = document.getElementById("searchInput");

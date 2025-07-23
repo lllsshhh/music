@@ -2,164 +2,26 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>YouTube 노래 추천</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f9f9f9;
-    }
-    h2 {
-      margin-bottom: 10px;
-    }
-    .search-box {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
-    .genre-menu {
-      margin-bottom: 20px;
-    }
-    .genre-menu button {
-      padding: 10px 16px;
-      margin-right: 10px;
-      border: none;
-      background-color: #e0e0e0;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-    .genre-menu button.active {
-      background-color: #cc0000;
-      color: white;
-    }
-    .video-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .video-card {
-      width: 100%;
-      max-width: 480px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      padding: 10px;
-    }
-    iframe {
-      width: 100%;
-      height: 270px;
-      border-radius: 8px;
-    }
-    .no-results {
-      font-size: 18px;
-      color: gray;
-    }
-  </style>
+  <title>유튜브 노래 추천</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="musicScreen">
+    <h2>🎵 유튜브 노래 추천</h2>
 
-  <h2>🎵 유튜브 노래 추천</h2>
+    <input type="text" id="searchInput" class="search-box" placeholder="노래 제목을 검색하세요..." />
 
-  <!-- 🔍 검색창 -->
-  <input type="text" id="searchInput" class="search-box" placeholder="노래 제목을 검색하세요..." />
+    <div class="genre-menu" id="genreMenu">
+      <button data-genre="K-POP">K-POP</button>
+      <button data-genre="Pop">Pop</button>
+      <button data-genre="Hip-hop">Hip-hop</button>
+      <button data-genre="Jazz">Jazz</button>
+    </div>
 
-  <!-- 🎧 장르 메뉴 -->
-  <div class="genre-menu" id="genreMenu">
-    
-    <button data-genre="K-POP">KPOP</button>
-    <button data-genre="Pop">Pop</button>
-    <button data-genre="Hip-hop">Hip-hop</button>
-    <button data-genre="Jazz">Jazz</button>
+    <div class="video-list" id="videoList"></div>
+    <div class="no-results" id="noResults" style="display:none;">검색 결과가 없습니다.</div>
   </div>
 
-  <!-- 🎬 유튜브 노래 리스트 -->
-  <div class="video-list" id="videoList"></div>
-  <div class="no-results" id="noResults" style="display:none;">검색 결과가 없습니다.</div>
-
-  <script>
-    const videos = [
-      {
-        title: "IVE - After LIKE",
-        genre: "K-POP",
-        videoId: "F0B7HDiY-10"
-      },
-      {
-        title: "Charlie Puth - Attention",
-        genre: "Pop",
-        videoId: "nfs8NYg7yQM"
-      },
-      {
-        title: "BIGBANG - Still Life",
-        genre: "K-POP",
-        videoId: "4sYNjvFTO4s"
-      },
-      {
-        title: "Lofi Hip-hop Chill Mix",
-        genre: "Hip-hop",
-        videoId: "5qap5aO4i9A"
-      },
-      {
-        title: "Jazz Vibes for Relaxing",
-        genre: "Jazz",
-        videoId: "Dx5qFachd3A"
-      }
-    ];
-
-    const searchInput = document.getElementById("searchInput");
-    const videoList = document.getElementById("videoList");
-    const genreButtons = document.querySelectorAll("#genreMenu button");
-    const noResults = document.getElementById("noResults");
-
-    let selectedGenre = "all";
-
-    function renderVideos() {
-      const keyword = searchInput.value.trim().toLowerCase();
-
-      const filtered = videos.filter(video => {
-        const matchTitle = video.title.toLowerCase().includes(keyword);
-        const matchGenre = selectedGenre === "all" || video.genre === selectedGenre;
-        return matchTitle && matchGenre;
-      });
-
-      videoList.innerHTML = "";
-      if (filtered.length === 0) {
-        noResults.style.display = "block";
-        return;
-      } else {
-        noResults.style.display = "none";
-      }
-
-      filtered.forEach(video => {
-        const card = document.createElement("div");
-        card.className = "video-card";
-        card.innerHTML = `
-          <strong>${video.title} (${video.genre})</strong>
-          <iframe 
-            src="https://www.youtube.com/embed/${video.videoId}" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        `;
-        videoList.appendChild(card);
-      });
-    }
-
-    searchInput.addEventListener("input", renderVideos);
-
-    genreButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        genreButtons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        selectedGenre = button.dataset.genre;
-        renderVideos();
-      });
-    });
-
-    renderVideos(); // 초기 표시
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

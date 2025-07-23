@@ -1,115 +1,83 @@
-/* 시작 화면 전체 중앙 정렬 */
-.start-screen {
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ✅ 첫 번째 화면 */
+#startScreen {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #fff;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
   text-align: center;
 }
-
-.center-box {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+#startScreen h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
 }
-
-/* 버튼 공통 */
-button {
+#startScreen button {
   padding: 12px 24px;
   font-size: 18px;
-  border: 2px solid #d46b00;
-  background-color: white;
+  background: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #f7f7f7;
+/* ✅ 세 번째 화면 */
+#musicScreen {
+  padding: 30px;
+  background-color: #f9f9f9;
 }
-
-/* 설문조사 스타일 */
-.survey-container {
-  max-width: 600px;
-  margin: 50px auto;
-  font-family: Arial, sans-serif;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.question {
-  margin-bottom: 30px;
-  font-size: 18px;
-}
-/* 공통 중앙 정렬 화면 */
-.survey-container {
-  max-width: 600px;
-  margin: 50px auto;
-  font-family: Arial, sans-serif;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.question {
-  margin-bottom: 30px;
-  font-size: 18px;
-}
-
-.note {
-  font-size: 14px;
-  color: gray;
-  margin-left: 10px;
-}
-
-/* 검색창 */
-.top-bar {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
 .search-box {
-  width: 300px;
-  padding: 8px;
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
-
-/* 장르 메뉴 */
 .genre-menu {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin: 10px 0 30px;
-  font-weight: bold;
+  margin-bottom: 20px;
 }
-
-.genre-tab {
+.genre-menu button {
+  padding: 10px 16px;
+  margin-right: 10px;
+  border: none;
+  background-color: #e0e0e0;
   cursor: pointer;
+  border-radius: 6px;
 }
-
-/* 노래 카드 */
-.song-grid {
+.genre-menu button.active {
+  background-color: #cc0000;
+  color: white;
+}
+.video-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 20px;
 }
-
-.song-card {
-  width: 160px;
-  background: #f4f4f4;
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.song-card img {
+.video-card {
   width: 100%;
-  height: 100px;
-  object-fit: cover;
+  max-width: 480px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+iframe {
+  width: 100%;
+  height: 270px;
+  border-radius: 8px;
+}
+.no-results {
+  font-size: 18px;
+  color: gray;
 }

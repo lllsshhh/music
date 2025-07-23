@@ -126,7 +126,7 @@ const videos = [
   },
   {
     title: "10cm - 너에게 닿기를 ",
-    genre: "K-Pop",
+    genre: "K-POP",
     videoId: "PQL28qfLSjgYicES"
   },
 ];

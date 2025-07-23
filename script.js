@@ -12,122 +12,122 @@ const videos = [
   {
     title: "All day project - Famous",
     genre: "K-POP",
-    videoId: "Xl4D6pZZLgByXYiU"
+    videoId: "VjvzYjU1mY0"
   },
   {
     title: "언에듀 - 룰루랄라",
     genre: "Hip-hop",
-    videoId: "sv6WvFNoDJxAMiuu"
+    videoId: "-A6qbVttE1A"
   },
   {
     title: "Ph-1 - Good day",
     genre: "Hip-hop",
-    videoId: "ZPHrHhq2OBjdxOk5"
+    videoId: "G9crpffgwx0"
   },
   {
     title: "호미들 - 사임쌓임",
     genre: "Hip-hop",
-    videoId: "bKFZ2i0gM7Hu7HMM"
+    videoId: "u5a1CGlLUoU"
   },
   {
     title: "버즈 - My Love",
     genre: "발라드",
-    videoId: "KPKJjycZB7f4fTjn"
+    videoId: "i-TFmaRcoKs"
   },
   {
     title: "우원재 - 시",
     genre: "Hip-hop",
-    videoId: "GLSwywT0XdlXEvE8"
+    videoId: "H04mbKV44so"
   },
   {
     title: "포스트맨 - 신촌을 못",
     genre: "발라드",
-    videoId: "IQChTs4y56INVenW"
+    videoId: "SBukflMO7O4"
   },
   {
     title: "Post Malone, Swae Lee - Sunflower",
     genre: "Pop",
-    videoId: "1lX6I-aVtakkkPGk"
+    videoId: "ApXoWvfEYVU"
   },
   {
     title: "NewJeans - OMG",
     genre: "K-POP",
-    videoId: "9VYshORkeZxvieDz"
+    videoId: "sVTy_wmn5SU"
   },
   {
     title: "V.O.S - 울어",
     genre: "발라드",
-    videoId: "A6RyOiWjIoL8TMNH"
+    videoId: "eXkspcN19Tg"
   },
   {
     title: "The Kid LAROI, Justin Bieber - STAY",
     genre: "Pop",
-    videoId: "Jj6QSfYbfv0qX8b9"
+    videoId: "kTJczUoc26U"
   },
    {
     title: "창모 - 메테오",
     genre: "Hip-hop",
-    videoId: "k64pu8pgfsxlMLtf"
+    videoId: "lOrU0MH0bMk"
   },
   {
     title: "NewJeans - ETA",
     genre: "K-POP",
-    videoId: "FSiyJBLJuGMperVO"
+    videoId: "jOTfBlKSQYY"
   },
   {
     title: "Aespa - Whiplash",
     genre: "K-POP",
-    videoId: "-m_lynjb9wIJkUcj"
+    videoId: "-jWQx2f-CErU"
   },
   {
     title: "Potty Monkey - 남자니까",
     genre: "Hip-hop",
-    videoId: "nYJs_ZwRN5VR_gH9"
+    videoId: "1rY2vIBPVaA"
   },
    {
     title: "오혁 - 소녀",
     genre: "발라드",
-    videoId: "OSR3-U7dRX_7RNKz"
+    videoId: "43Oh_-A3eI8"
   },
   {
     title: "카더가든 - 가까운 듯 먼 그대여",
     genre: "발라드",
-    videoId: "6J08qJSxNaxvyf9P"
+    videoId: "CAxPgfOqtr8"
   },
   {
     title: "더 넛츠 - 사랑의 바보",
     genre: "발라드",
-    videoId: "Tr2zh3LQLIIPiA1v"
+    videoId: "fuCmW_1_wxs"
   },
   {
     title: "Clean Bandit - Symphony",
     genre: "Pop",
-    videoId: "yvq1VmE1aPG6l_b2"
+    videoId: "aatr_2MstrI"
   },
    {
     title: "Wiz Khalifa - See You Again ",
     genre: "Pop",
-    videoId: "o8hMCKOZxQGv2OjA"
+    videoId: "RgKAFK5djSk"
   },
   {
     title: "Lukas Graham - 7 Years ",
     genre: "Pop",
-    videoId: "-3SLouxrVWJGP8rd"
+    videoId: "LHCob76kigA"
   },
   {
     title: "The Weekend - Blinding lights ",
     genre: "Pop",
-    videoId: "lbCq_B6EWjMAXOZO"
+    videoId: "4NRXx6U8ABQ"
   },
   {
     title: "Avicii - The Nights ",
     genre: "Pop",
-    videoId: "TLh0ha3dLDnCmCgm"
+    videoId: "UtF6Jej8yb4"
   },
   {
     title: "10cm - 너에게 닿기를 ",
     genre: "K-POP",
-    videoId: "PQL28qfLSjgYicES"
+    videoId: "qRdFd34gnOY"
   },
 ];
 
@@ -182,3 +182,27 @@ genreButtons.forEach(button => {
 });
 
 renderVideos(); // 초기 로딩 시 표시
+const apiKey = '발급받은API키';  // 여기에 본인 API 키 입력
+const videoId = 'iHrbq8DWm24';   // 조회할 유튜브 영상 ID 입력
+
+async function getVideoStats() {
+  const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.items && data.items.length > 0) {
+      const stats = data.items[0].statistics;
+      document.getElementById('views').innerText = `조회수: ${Number(stats.viewCount).toLocaleString()}회`;
+      document.getElementById('likes').innerText = `좋아요: ${Number(stats.likeCount).toLocaleString()}개`;
+    } else {
+      document.getElementById('views').innerText = '조회수 데이터를 불러올 수 없습니다.';
+      document.getElementById('likes').innerText = '좋아요 데이터를 불러올 수 없습니다.';
+    }
+  } catch (error) {
+    console.error('API 요청 실패:', error);
+  }
+}
+
+getVideoStats();

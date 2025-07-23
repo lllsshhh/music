@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>세 번째 화면 - 노래 추천</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: #f9f9f9;
+    }
+    h2 { margin-bottom: 20px; }
+    .search-box {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .genre-menu {
+      margin-bottom: 30px;
+    }
+    .genre-menu button {
+      padding: 10px 16px;
+      margin-right: 10px;
+      border: none;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .genre-menu button.active {
+      background-color: #ff5500;
+      color: white;
+    }
+    .song-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .song-card {
+      width: 300px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 150px;
+    }
+    .no-results {
+      margin-top: 20px;
+      font-size: 18px;
+      color: gray;
+    }
+    .playlist-section {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎵 노래 검색 & 장르별 추천</h2>
+
+  <!-- 🔍 검색창 -->
+  <input type="text" id="searchInput" class="search-box" placeholder="노래 제목을 입력하세요..." />
+
+  <!-- 🎧 장르 메뉴 -->
+  <div class="genre-menu" id="genreMenu">
+    <button data-genre="all" class="active">전체</button>
+    <button data-genre="KPOP">KPOP</button>
+    <button data-genre="Pop">Pop</button>
+    <button data-genre="Hip-hop">Hip-hop</button>
+    <button data-genre="Jazz">Jazz</button>
+  </div>
+
+  <!-- 🎶 노래 목록 -->
+  <div class="song-list" id="songList"></div>
+  <div class="no-results" id="noResults" style="display: none;">검색 결과가 없습니다.</div>
+
+  <!-- 🎼 SoundCloud 플레이리스트 -->
+  <div class="playlist-section">
+    <h3>🎧 SoundCloud Pop 플레이리스트 전체</h3>
+    <iframe 
+      width="100%" 
+      height="450" 
+      scrolling="no" 
+      frameborder="no" 
+      allow="autoplay" 
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/trending-music-kr/sets/pop&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+    </iframe>
+  </div>
+
+  <script>
+    // 🎵 예시 노래 데이터 (여기에 실제 트랙 추가 가능)
+    const songs = [
+      {
+        title: "Love, Maybe",
+        genre: "KPOP",
+        embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-123456789/love-maybe"
+      },
+      {
+        title: "On My Way",
+        genre: "Pop",
+        embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-123456789/on-my-way"
+      },
+      {
+        title: "Late Night Jazz",
+        genre: "Jazz",
+        embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-123456789/late-night-jazz"
+      },
+      {
+        title: "Rap Star",
+        genre: "Hip-hop",
+        embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-123456789/rap-star"
+      }
+    ];
+
+    const searchInput = document.getElementById("searchInput");
+    const songList = document.getElementById("songList");
+    const genreButtons = document.querySelectorAll("#genreMenu button");
+    const noResults = document.getElementById("noResults");
+
+    let selectedGenre = "all";
+
+    function renderSongs() {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const filtered = songs.filter(song => {
+        const matchTitle = song.title.toLowerCase().includes(keyword);
+        const matchGenre = selectedGenre === "all" || song.genre === selectedGenre;
+        return matchTitle && matchGenre;
+      });
+
+      songList.innerHTML = "";
+      if (filtered.length === 0) {
+        noResults.style.display = "block";
+        return;
+      }
+      noResults.style.display = "none";
+
+      filtered.forEach(song => {
+        const card = document.createElement("div");
+        card.className = "song-card";
+        card.innerHTML = `
+          <strong>${song.title} (${song.genre})</strong>
+          <iframe scrolling="no" frameborder="no" allow="autoplay" src="${song.embedUrl}"></iframe>
+        `;
+        songList.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", renderSongs);
+
+    genreButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        genreButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        selectedGenre = button.dataset.genre;
+        renderSongs();
+      });
+    });
+
+    renderSongs(); // 초기 표시
+  </script>
+</body>
+</html>

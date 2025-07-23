@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>설문조사</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+    .question { margin-bottom: 30px; }
+    label.note { font-size: 14px; color: gray; margin-left: 10px; }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #d46b00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎧 음악 추천을 위한 설문조사</h2>
+  <form id="surveyForm">
+    <div class="question">
+      <strong>Q1. 좋아하는 음악 장르는 무엇인가요? <span class="note">(최대 2개 선택 가능)</span></strong><br>
+      <input type="checkbox" name="genre" value="발라드" id="ballad"> <label for="ballad">발라드</label><br>
+      <input type="checkbox" name="genre" value="R&B" id="rnb"> <label for="rnb">R&B</label><br>
+      <input type="checkbox" name="genre" value="랩" id="rap"> <label for="rap">랩</label><br>
+      <input type="checkbox" name="genre" value="KPOP" id="kpop"> <label for="kpop">KPOP</label><br>
+      <input type="checkbox" name="genre" value="클래식" id="classic"> <label for="classic">클래식</label><br>
+    </div>
+          <!-- 질문 2 -->
+      <div class="question">
+        <label><strong>Q2. 현재 기분은 어떤가요? <span class="note">(두 개 선택할 수 있습니다)</span></strong></label><br>
+        <input type="checkbox" name="mood" value="신남"> 신남<br>
+        <input type="checkbox" name="mood" value="우울"> 우울<br>
+        <input type="checkbox" name="mood" value="외로움"> 외로움<br>
+        <input type="checkbox" name="mood" value="쓸쓸함"> 쓸쓸함
+      </div>
+
+      <!-- 질문 3 -->
+      <div class="question">
+        <label><strong>Q3. 좋아하는 가수가 있나요?</strong></label><br>
+        <input type="text" name="artist" placeholder="이름을 입력하세요">
+      </div>
+
+    <button type="submit">다음</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("surveyForm");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const checkedBoxes = Array.from(form.genre).filter(cb => cb.checked);
+      if (checkedBoxes.length === 0) {
+        alert("최소 한 개 이상 선택해주세요.");
+        return;
+      }
+      if (checkedBoxes.length > 2) {
+        alert("최대 2개까지 선택 가능합니다.");
+        return;
+      }
+      // 선택한 장르 배열
+      const selectedGenres = checkedBoxes.map(cb => cb.value);
+
+      // 선택 장르를 URL 쿼리스트링으로 넘김
+      const param = encodeURIComponent(selectedGenres.join(","));
+      window.location.href = `result.html?genres=${param}`;
+    });
+  </script>
+</body>
+</html>
+

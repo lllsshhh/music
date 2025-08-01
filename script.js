@@ -131,7 +131,7 @@ const videos = [
   },
 ];
 
-const videos = [
+const VIDEOS = [
   // (동일한 videos 배열 생략 가능, 기존 내용 그대로 유지)
 ];
 
@@ -218,10 +218,11 @@ async function fetchVideoData() {
     const res = await fetch(url);
     const data = await res.json();
   }
-    data.items.forEach(item => {
+    data.items.forEach(item) => {
       const id = item.id;
       const stats = item.statistics;
       const snippet = item.snippet;
     }
       document.getElementById(`title-${id}`).textContent = snippet.title;
       document.getElementById(`views-${id}`).textContent = Number(stats.viewCount)
+  

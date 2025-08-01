@@ -1,16 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유튜브 노래 추천</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div>
-  <p id="views">조회수: 로딩중...</p>
-  <p id="likes">좋아요: 로딩중...</p>
-  </div>
 
   <div id="musicScreen">
     <h2>🎵 유튜브 노래 추천</h2>
@@ -23,12 +20,13 @@
       <button data-genre="발라드">발라드</button>
       <button data-genre="Pop">Pop</button>
       <button data-genre="Hip-hop">Hip-hop</button>
-    
     </div>
 
     <div class="video-list" id="videoList"></div>
     <div class="no-results" id="noResults" style="display:none;">검색 결과가 없습니다.</div>
   </div>
+
+  <div id="videos-container"></div>
 
   <script src="script.js"></script>
 </body>

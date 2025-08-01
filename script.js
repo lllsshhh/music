@@ -131,6 +131,10 @@ const videos = [
   },
 ];
 
+const videos = [
+  // (동일한 videos 배열 생략 가능, 기존 내용 그대로 유지)
+];
+
 const searchInput = document.getElementById("searchInput");
 const videoList = document.getElementById("videoList");
 const genreButtons = document.querySelectorAll("#genreMenu button");
@@ -181,17 +185,17 @@ genreButtons.forEach(button => {
   });
 });
 
-const API_KEY = 'AIzaSyAEqeIA70aaieKkuotNa6pNhfLvDki0DY8';  // 여기에 API 키 입력
-const VIDEOS = [
+// ✅ YouTube API 연동
+const API_KEY = 'AIzaSyAEqeIA70aaieKkuotNa6pNhfLvDki0DY8'; // <-- 여기에 API 키 입력
+const STATS_VIDEOS = [
   { id: 'F0B7HDiY-10' },
   { id: 'nfs8NYg7yQM' },
   { id: 'VjvzYjU1mY0' }
 ];
 
-// HTML 생성 (초기엔 제목을 비워둠)
 function createVideoElements() {
   const container = document.getElementById('videos-container');
-  VIDEOS.forEach(video => {
+  STATS_VIDEOS.forEach(video => {
     const videoHTML = `
       <div class="video-item" id="video-${video.id}">
         <h3 id="title-${video.id}">제목 불러오는 중...</h3>
@@ -206,33 +210,18 @@ function createVideoElements() {
   });
 }
 
-// API로 제목과 통계 가져오기
 async function fetchVideoData() {
-  const ids = VIDEOS.map(v => v.id).join(',');
+  const ids = STATS_VIDEOS.map(v => v.id).join(',');
   const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${ids}&key=${API_KEY}`;
-
+}
   try {
     const res = await fetch(url);
     const data = await res.json();
-
+  }
     data.items.forEach(item => {
       const id = item.id;
       const stats = item.statistics;
       const snippet = item.snippet;
-
-      // 제목 표시
+    }
       document.getElementById(`title-${id}`).textContent = snippet.title;
-
-      // 통계 표시
-      document.getElementById(`views-${id}`).textContent = Number(stats.viewCount).toLocaleString();
-      document.getElementById(`likes-${id}`).textContent = Number(stats.likeCount).toLocaleString();
-    });
-  } catch (err) {
-    console.error('API 오류:', err);
-  }
-}
-
-// 실행
-createVideoElements();
-fetchVideoData();
-setInterval(fetchVideoData, 30000);  // 30초마다 갱신
+      document.getElementById(`views-${id}`).textContent = Number(stats.viewCount)

@@ -181,28 +181,58 @@ genreButtons.forEach(button => {
   });
 });
 
-renderVideos(); // 초기 로딩 시 표시
-const apiKey = '발급받은API키';  // 여기에 본인 API 키 입력
-const videoId = 'iHrbq8DWm24';   // 조회할 유튜브 영상 ID 입력
+const API_KEY = 'AIzaSyAEqeIA70aaieKkuotNa6pNhfLvDki0DY8';  // 여기에 API 키 입력
+const VIDEOS = [
+  { id: 'F0B7HDiY-10' },
+  { id: 'nfs8NYg7yQM' },
+  { id: 'VjvzYjU1mY0' }
+];
 
-async function getVideoStats() {
-  const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${apiKey}`;
+// HTML 생성 (초기엔 제목을 비워둠)
+function createVideoElements() {
+  const container = document.getElementById('videos-container');
+  VIDEOS.forEach(video => {
+    const videoHTML = `
+      <div class="video-item" id="video-${video.id}">
+        <h3 id="title-${video.id}">제목 불러오는 중...</h3>
+        <iframe src="https://www.youtube.com/embed/${video.id}" allowfullscreen></iframe>
+        <div class="stats">
+          <p>조회수: <span id="views-${video.id}">-</span></p>
+          <p>좋아요: <span id="likes-${video.id}">-</span></p>
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', videoHTML);
+  });
+}
+
+// API로 제목과 통계 가져오기
+async function fetchVideoData() {
+  const ids = VIDEOS.map(v => v.id).join(',');
+  const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${ids}&key=${API_KEY}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const res = await fetch(url);
+    const data = await res.json();
 
-    if (data.items && data.items.length > 0) {
-      const stats = data.items[0].statistics;
-      document.getElementById('views').innerText = `조회수: ${Number(stats.viewCount).toLocaleString()}회`;
-      document.getElementById('likes').innerText = `좋아요: ${Number(stats.likeCount).toLocaleString()}개`;
-    } else {
-      document.getElementById('views').innerText = '조회수 데이터를 불러올 수 없습니다.';
-      document.getElementById('likes').innerText = '좋아요 데이터를 불러올 수 없습니다.';
-    }
-  } catch (error) {
-    console.error('API 요청 실패:', error);
+    data.items.forEach(item => {
+      const id = item.id;
+      const stats = item.statistics;
+      const snippet = item.snippet;
+
+      // 제목 표시
+      document.getElementById(`title-${id}`).textContent = snippet.title;
+
+      // 통계 표시
+      document.getElementById(`views-${id}`).textContent = Number(stats.viewCount).toLocaleString();
+      document.getElementById(`likes-${id}`).textContent = Number(stats.likeCount).toLocaleString();
+    });
+  } catch (err) {
+    console.error('API 오류:', err);
   }
 }
 
-getVideoStats();
+// 실행
+createVideoElements();
+fetchVideoData();
+setInterval(fetchVideoData, 30000);  // 30초마다 갱신

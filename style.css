@@ -1,19 +1,12 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #fafafa;
+  font-family: 'Arial', sans-serif;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
-
-/* 시작 화면 */
+/* ✅ 첫 번째 화면 */
 #startScreen {
   display: flex;
   flex-direction: column;
@@ -21,15 +14,13 @@ h2 {
   align-items: center;
   height: 100vh;
   background: #ffffff;
-  color: #000;
+  color: rgb(0, 0, 0);
   text-align: center;
 }
-
 #startScreen h1 {
   font-size: 40px;
   margin-bottom: 30px;
 }
-
 #startScreen button {
   padding: 12px 24px;
   font-size: 18px;
@@ -40,18 +31,11 @@ h2 {
   cursor: pointer;
 }
 
-.logo {
-  width: 300px;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-/* 추천 화면 */
+/* ✅ 세 번째 화면 */
 #musicScreen {
   padding: 30px;
   background-color: #f9f9f9;
 }
-
 .search-box {
   width: 100%;
   padding: 12px;
@@ -60,11 +44,9 @@ h2 {
   border-radius: 6px;
   margin-bottom: 20px;
 }
-
 .genre-menu {
   margin-bottom: 20px;
 }
-
 .genre-menu button {
   padding: 10px 16px;
   margin-right: 10px;
@@ -73,26 +55,49 @@ h2 {
   cursor: pointer;
   border-radius: 6px;
 }
-
 .genre-menu button.active {
   background-color: #cc0000;
   color: white;
 }
-
 .video-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
-
-.video-card, .video-item {
+.video-card {
   width: 100%;
   max-width: 480px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   padding: 10px;
+}
+iframe {
+  width: 100%;
+  height: 270px;
+  border-radius: 8px;
+}
+.no-results {
+  font-size: 18px;
+  color: gray;
+}
+.logo {
+  width: 300px;
+  height: auto;
   margin-bottom: 20px;
+}
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fafafa;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.video-item {
+  margin-bottom: 40px;
 }
 
 iframe {
@@ -107,16 +112,3 @@ iframe {
   margin-top: 10px;
   font-size: 16px;
 }
-
-.no-results {
-  font-size: 18px;
-  color: gray;
-}
-
-@media (max-width: 768px) {
-  .video-list {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-

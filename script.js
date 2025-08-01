@@ -131,10 +131,6 @@ const videos = [
   },
 ];
 
-const VIDEOS = [
-  // (동일한 videos 배열 생략 가능, 기존 내용 그대로 유지)
-];
-
 const searchInput = document.getElementById("searchInput");
 const videoList = document.getElementById("videoList");
 const genreButtons = document.querySelectorAll("#genreMenu button");
@@ -185,44 +181,3 @@ genreButtons.forEach(button => {
   });
 });
 
-// ✅ YouTube API 연동
-const API_KEY = 'AIzaSyAEqeIA70aaieKkuotNa6pNhfLvDki0DY8'; // <-- 여기에 API 키 입력
-const STATS_VIDEOS = [
-  { id: 'F0B7HDiY-10' },
-  { id: 'nfs8NYg7yQM' },
-  { id: 'VjvzYjU1mY0' }
-];
-
-function createVideoElements() {
-  const container = document.getElementById('videos-container');
-  STATS_VIDEOS.forEach(video => {
-    const videoHTML = `
-      <div class="video-item" id="video-${video.id}">
-        <h3 id="title-${video.id}">제목 불러오는 중...</h3>
-        <iframe src="https://www.youtube.com/embed/${video.id}" allowfullscreen></iframe>
-        <div class="stats">
-          <p>조회수: <span id="views-${video.id}">-</span></p>
-          <p>좋아요: <span id="likes-${video.id}">-</span></p>
-        </div>
-      </div>
-    `;
-    container.insertAdjacentHTML('beforeend', videoHTML);
-  });
-}
-
-async function fetchVideoData() {
-  const ids = STATS_VIDEOS.map(v => v.id).join(',');
-  const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${ids}&key=${API_KEY}`;
-}
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-  }
-    data.items.forEach(item) => {
-      const id = item.id;
-      const stats = item.statistics;
-      const snippet = item.snippet;
-    }
-      document.getElementById(`title-${id}`).textContent = snippet.title;
-      document.getElementById(`views-${id}`).textContent = Number(stats.viewCount)
-  
